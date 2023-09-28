@@ -1,0 +1,43 @@
+from sqlalchemy import (
+    create_engine, Column, Integer, String
+)
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+
+# executing the instructions from the "chinook" database
+db = create_engine("postgresql:///chinook")
+base = declarative_base()
+
+# create a classed based model for the "Programme" table
+class Programmer(base):
+    __tablename__ = "Programmer"
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String)
+    last_name = Column(String)
+    gender = Column(String)
+    nationality = Column(String)
+    famous_for = Column(String)
+
+# Instead of connecting to the database directly, we will ask for a session
+# Create a new instance of sessionmaker, then point to our engine (the database)
+Session = sessionmaker(db)
+# Open an actual session by calling the Session subclass defined above
+session = Session()
+
+# Create the database using declarative_base subclass
+base.metadata.create_all(db)
+
+# Creating records on our programmer table
+ada_lovelace = Programmer(
+    first_name = "Ada"
+    last_name = "Lovelace"
+    gender = "F"
+    nationality = "British"
+    famous_for = "First Programmer"
+)
+
+# Add each instance of our programmers to the session
+session.add(ada_lovelace)
+
+# Commit our session to the database
+session.commit()
