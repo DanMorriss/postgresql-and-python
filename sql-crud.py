@@ -9,6 +9,8 @@ db = create_engine("postgresql:///chinook")
 base = declarative_base()
 
 # create a classed based model for the "Programme" table
+
+
 class Programmer(base):
     __tablename__ = "Programmer"
     id = Column(Integer, primary_key=True)
@@ -17,6 +19,7 @@ class Programmer(base):
     gender = Column(String)
     nationality = Column(String)
     famous_for = Column(String)
+
 
 # Instead of connecting to the database directly, we will ask for a session
 # Create a new instance of sessionmaker, then point to our engine (the database)
@@ -86,16 +89,54 @@ dan_morriss = Programmer(
 
 # Add each instance of our programmers to the session
 # session.add(ada_lovelace)
-session.add(alan_touring)
-session.add(grace_hopper)
-session.add(margaret_hamilton)
-session.add(bill_gates)
-session.add(tim_burners_lee)
-session.add(dan_morriss)
-
+# session.add(alan_touring)
+# session.add(grace_hopper)
+# session.add(margaret_hamilton)
+# session.add(bill_gates)
+# session.add(tim_burners_lee)
+# session.add(dan_morriss)
 
 # Commit our session to the database
 session.commit()
+
+# Updating a single record
+# programmer = session.query(Programmer).filter_by(id=11).first()
+# programmer.famous_for = "World President"
+
+# Updating multiple records
+# people = session.query(Programmer)
+# for person in people:
+#     if person.gender == "F":
+#         person.gender = "Female"
+#     elif person.gender == "M":
+#         person.gender = "Male"
+#     else:
+#         print("Gender not defined")
+#     session.commit()
+
+# deleting a single record
+# fname = input("Enter a first name: ")
+# lname = input("Enter a last name: ")
+# programmer = session.query(Programmer).filter_by(first_name=fname, last_name=lname).first()
+# Defensive programming
+# if programmer is not None:
+#     print("Programmer found: " + programmer.first_name + " " + programmer.last_name)
+#     confirmation = input("Are you sure you want to delete this record? (y/n)")
+#     if confirmation.lower() == 'y':
+#         session.delete(programmer)
+#         session.commit()
+#         print("Programmer has been deleted")
+# else:
+#     print("No records found")
+
+# delete multipple records
+# programmers = session.query(Programmer)
+# confirmation = input("Are you sure? This action cannot be undone (y/n)")
+# if confirmation.lower() == 'y':
+#     for programmer in programmers:
+#         session.delete(programmer)
+#         session.commit()
+#     print("All records deleted")
 
 # Query the databse to find all the programmers
 programmers = session.query(Programmer)
@@ -103,8 +144,8 @@ for programmer in programmers:
     print(
         programmer.id,
         programmer.first_name + " " + programmer.last_name,
-        programmer.gender, 
-        programmer.nationality, 
-        programmer.famous_for, 
+        programmer.gender,
+        programmer.nationality,
+        programmer.famous_for,
         sep=" | "
     )
