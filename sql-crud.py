@@ -88,13 +88,13 @@ dan_morriss = Programmer(
 )
 
 # Add each instance of our programmers to the session
-# session.add(ada_lovelace)
-# session.add(alan_touring)
-# session.add(grace_hopper)
-# session.add(margaret_hamilton)
-# session.add(bill_gates)
-# session.add(tim_burners_lee)
-# session.add(dan_morriss)
+session.add(ada_lovelace)
+session.add(alan_touring)
+session.add(grace_hopper)
+session.add(margaret_hamilton)
+session.add(bill_gates)
+session.add(tim_burners_lee)
+session.add(dan_morriss)
 
 # Commit our session to the database
 session.commit()
